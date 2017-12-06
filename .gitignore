@@ -1,0 +1,13 @@
+obj
+bin
+*.csproj.user
+*ReSharper*
+*resharper*
+*.suo
+*.user
+*.cache
+* Thumbs.db
+
+*.orig
+*.back
+.idea
