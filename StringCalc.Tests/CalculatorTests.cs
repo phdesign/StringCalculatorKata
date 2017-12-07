@@ -43,6 +43,26 @@ namespace StringCalc.Tests
         {
             AddTest(input, expected);
         }
+        
+        [Theory]
+        [InlineData("//;\n1;-2", "Negatives not allowed: -2")]
+        [InlineData("1,-2", "Negatives not allowed: -2")]
+        [InlineData("-1\n-2\n3", "Negatives not allowed: -1,-2")]
+        [InlineData("-1", "Negatives not allowed: -1")]
+        public void Add_ShouldThrowException_GivenNegativeInputs(string input, string expectedException)
+        {
+            var ex = Assert.Throws<ArgumentException>(() => AddTest(input, -1));
+            Assert.Equal(expectedException + "\r\nParameter name: numbers", ex.Message);
+        }
+        
+        [Theory]
+        [InlineData("1000", 1000)]
+        [InlineData("1001", 0)]
+        [InlineData("2,1001", 2)]
+        public void Add_ShouldIgnoreNumbersBiggerThan1000(string input, int expected)
+        {
+            AddTest(input, expected);
+        }
 
         private void AddTest(string input, int expected)
         {
